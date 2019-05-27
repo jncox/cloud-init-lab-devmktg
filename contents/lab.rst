@@ -64,9 +64,12 @@ While creating an Nutanix image is beyond the scope of this lab, the following c
 
   sudo yum install cloud-init
 
-The following steps will cover how to take an image provided by Nutanix and make it available on your cluster.
+The following steps will cover how to take an image provided by Nutanix and make it available on your cluster.  Please click the appropriate link below.
 
-Please use the section for Prism Central or Prism Element, depending on which one you are using.  When that section is completed, please continue at the **Deploying Cloud-Init VM** section.
+- Prism Central_ instructions
+- Prism Element_ instructions
+
+.. _Central:
 
 Prism Central 5.10.3
 ....................
@@ -98,6 +101,8 @@ Prism Central 5.10.3
   .. figure:: images/pc_images_operation_received.png
 
   Prism Central will download the image from the Nutanix download servers and create an image based on the details above.
+
+.. _Element:
 
 Prism Element 5.10.3.1 LTS
 ..........................
