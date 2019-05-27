@@ -58,11 +58,9 @@ Preparing your cluster
 
 In order to deploy a CentOS 7 Linux VM using Cloud-Init, you'll need to make sure your cluster contains an appropriate disk image.  This image must have Cloud-Init pre-installed.
 
-While creating an Nutanix image is beyond the scope of this lab, the following command is all that needs to be run on your image VM.  Run this command *before* the VM is converted to an image.
+  .. note::
 
-.. code-block:: bash
-
-  sudo yum install cloud-init
+    While creating a Nutanix image *from scratch* is beyond the scope of this lab, there's a single command you'd need to run on your VM before converting it to an image.  That command is "sudo yum install cloud-init" and would install the Cloud-Init package, after which you can convert the VM to an image.  This is NOT required for this lab.
 
 The following steps will cover how to take an image provided by Nutanix and make it available on your cluster.  Please click the appropriate link below.
 
