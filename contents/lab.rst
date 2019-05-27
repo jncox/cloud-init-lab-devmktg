@@ -316,17 +316,19 @@ Now let's continue with our VM deployment.
 
      .. figure:: images/pe_pc_create_vm.png
 
+#. Replace **<<your public SSH RSA key here>** with either your own SSH public key, or the key provided above
+
 #. Click **Save**
 
-     At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  During this process, Nutanix Acropolis prepares the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
+     At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  That tasks is Nutanix Acropolis preparing the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
 
      .. figure:: images/create_vm_with_customize_pc.png
 
      .. figure:: images/create_vm_with_customize_pe.png
 
-#. Select your new VM and power it on
+#. When the **Create VM with customize** task has completed, select your new VM and power it on
 
-     - In Prism Central this is typically done by selecting the VM in the list, click the **Actions** button and selecting **Power On**
+     - In Prism Central this is typically done by selecting the VM in the list, clicking the **Actions** button and selecting **Power On**
 
        .. figure:: images/power_on_pc.png
 
@@ -345,7 +347,7 @@ What we can do, though, is wait a few minutes for the Cloud-Init processes to co
 
 #. Run the following (needlessly long, but clean) command:
 
-     .. code-block: bash
+     .. code-block:: bash
 
        clear; echo; sudo tail -5 /var/log/cloud-init.log; echo; sudo cat /run/cloud-init/status.json; echo;
 
@@ -366,7 +368,7 @@ What we can do, though, is wait a few minutes for the Cloud-Init processes to co
 
      .. code-block:: bash
 
-     Package python2-pip-8.1.2-8.el7.noarch already installed and latest version
+       Package python2-pip-8.1.2-8.el7.noarch already installed and latest version
 
 Finishing up and takeaways
 --------------------------
