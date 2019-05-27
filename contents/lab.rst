@@ -87,7 +87,7 @@ Prism Central 5.10.3
 
 #. **Image Description** - Nutanix-hosted image for deploying Cloud-Init based VMs
 
-  .. figure:: images/pc_images_completed.png
+    .. figure:: images/pc_images_completed.png
 
 #. Click **Save**
 
@@ -104,9 +104,9 @@ Prism Element 5.10.3.1 LTS
 
 #. Click the "cog" icon and select **Image Configuration**
 
-  .. figure:: images/cog_icon.png
+    .. figure:: images/cog_icon.png
 
-  .. figure:: images/pe_images.png
+    .. figure:: images/pe_images.png
 
 #. Click **Upload Image**
 
@@ -122,9 +122,9 @@ Prism Element 5.10.3.1 LTS
 
 #. Click **Save**
 
-  .. figure:: images/pe_images_completed.png
+    .. figure:: images/pe_images_completed.png
 
-  .. figure:: images/pe_images_operation_received.png
+    .. figure:: images/pe_images_operation_received.png
 
 Prism Element will indicate that the operation has been received and create an image from disk image at the URL specified.
 
@@ -138,15 +138,15 @@ Base VM
 
 #. If you are using Prism Central, select :fa:`bars` **> Virtual Infrastructure > VMs**.
 
-  .. figure:: images/pc_vms.png
+    .. figure:: images/pc_vms.png
 
 #. If you are using Prism Element, select main menu and select **VMs**
 
-  .. figure:: images/pe_vms.png
+    .. figure:: images/pe_vms.png
 
-.. note::
+    .. note::
 
-  The steps below apply to both Prism Central and Prism Element.
+        The steps below apply to both Prism Central and Prism Element.
 
 #. Select **Create VM**
 
@@ -164,24 +164,24 @@ Base VM
 
 #. **Memory** - 1
 
-#. **Disks** - Select **Add New Disk** 
+#. **Disks** - Select **Add New Disk**
 
-  - **Type** - Disk
-  - **Operation** - Clone from Image Service
-  - **Bus Type** - SCSI
-  - **Image** - *Initials*-Cloud-Init-Image (the image you created earlier)
-  - **Size** - Disabled field for this operation
-  - **Index** - Next Available
+     - **Type** - Disk
+     - **Operation** - Clone from Image Service
+     - **Bus Type** - SCSI
+     - **Image** - *Initials*-Cloud-Init-Image (the image you created earlier)
+     - **Size** - Disabled field for this operation
+     - **Index** - Next Available
 
-  .. figure:: images/add_disk.png
+     .. figure:: images/add_disk.png
 
 #. Click **Add**
 
 #. Click **Add New NIC**
 
-  - **VLAN Name** - An appropriate network on your cluster e.g. Primary or Secondary for Nutanix HPOC clusters
-  - **Network Connection State** - Connected (this option may not be available if using Nutanix Community Edition)
-  - **IP Address** - Leave blank if your environment supports DHCP, otherwise enter a static IP address appropriate for your environment
+     - **VLAN Name** - An appropriate network on your cluster e.g. Primary or Secondary for Nutanix HPOC clusters
+     - **Network Connection State** - Connected (this option may not be available if using Nutanix Community Edition)
+     - **IP Address** - Leave blank if your environment supports DHCP, otherwise enter a static IP address appropriate for your environment
 
 #. Click **Add**
 
@@ -232,62 +232,62 @@ A Cloud-Init YAML spec has been prepared for you ahead of time.  To use this fil
 
 #. Otherwise, a copy of the YAML file is available below:
 
-  .. code-block:: bash
+     .. code-block:: bash     
 
-  #cloud-config
-  users:
-    - name: nutanix
-      sudo: ['ALL=(ALL) NOPASSWD:ALL']
-      ssh-authorized-keys:
-        - <your public SSH RSA key here>
-      lock-passwd: false
-      passwd: $6$4guEcDvX$HBHMFKXp4x/Eutj0OW5JGC6f1toudbYs.q.WkvXGbUxUTzNcHawKRRwrPehIxSXHVc70jFOp3yb8yZgjGUuET.
+        #cloud-config
+        users:
+          - name: nutanix
+            sudo: ['ALL=(ALL) NOPASSWD:ALL']
+            ssh-authorized-keys:
+              - <your public SSH RSA key here>
+            lock-passwd: false
+            passwd: $6$4guEcDvX$HBHMFKXp4x/Eutj0OW5JGC6f1toudbYs.q.WkvXGbUxUTzNcHawKRRwrPehIxSXHVc70jFOp3yb8yZgjGUuET.
 
-  # note: the encoded password hash above is "nutanix/4u" (without the quotes)
+        # note: the encoded password hash above is "nutanix/4u" (without the quotes)
 
-  yum_repos:
-    epel-release:
-      baseurl: http://download.fedoraproject.org/pub/epel/7/$basearch
-      enabled: true
-      failovermethod: priority
-      gpgcheck: true
-      gpgkey: http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
-      name: Extra Packages for Enterprise Linux 7 - Release
+        yum_repos:
+          epel-release:
+            baseurl: http://download.fedoraproject.org/pub/epel/7/$basearch
+            enabled: true
+            failovermethod: priority
+            gpgcheck: true
+            gpgkey: http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+            name: Extra Packages for Enterprise Linux 7 - Release
 
-  package_update: true
-  package_upgrade: true
+        package_update: true
+        package_upgrade: true
 
-  hostname: centos7-tools-vm
+        hostname: centos7-tools-vm
 
-  packages:
-    - gcc-c++
-    - make
-    - unzip
-    - bash-completion
-    - python-pip
-    - s3cmd
-    - stress
-    - awscli
-    - ntp
-    - ntpdate
-    - nodejs
-    - python36
-    - python36-setuptools
-    - jq
+        packages:
+          - gcc-c++
+          - make
+          - unzip
+          - bash-completion
+          - python-pip
+          - s3cmd
+          - stress
+          - awscli
+          - ntp
+          - ntpdate
+          - nodejs
+          - python36
+          - python36-setuptools
+          - jq
 
-  runcmd:
-    - npm install -g request express
-    - systemctl stop firewalld
-    - systemctl disable firewalld
-    - /sbin/setenforce 0
-    - sed -i -e 's/enforcing/disabled/g' /etc/selinux/config
-    - /bin/python3.6 -m ensurepip
-    - pip install -U pip
-    - pip install boto3 python-magic
-    - ntpdate -u -s 0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org
-    - systemctl restart ntpd
+        runcmd:
+          - npm install -g request express
+          - systemctl stop firewalld
+          - systemctl disable firewalld
+          - /sbin/setenforce 0
+          - sed -i -e 's/enforcing/disabled/g' /etc/selinux/config
+          - /bin/python3.6 -m ensurepip
+          - pip install -U pip
+          - pip install boto3 python-magic
+          - ntpdate -u -s 0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org
+          - systemctl restart ntpd
 
-  final_message: CentOS 7 Tools Machine setup successfully!
+        final_message: CentOS 7 Tools Machine setup successfully!
 
 .. _GitHub: https://github.com/nutanixdev/cloud-init/blob/master/20190513_centos7toolsvm.yaml
 
@@ -314,25 +314,25 @@ Now let's continue with our VM deployment.
 
 #. Paste the YAML file from above into the field provided
 
-  .. figure:: images/pe_pc_create_vm.png
+     .. figure:: images/pe_pc_create_vm.png
 
 #. Click **Save**
 
-  At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  During this process, Nutanix Acropolis prepares the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
+     At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  During this process, Nutanix Acropolis prepares the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
 
-  .. figure:: images/create_vm_with_customize_pc.png
+     .. figure:: images/create_vm_with_customize_pc.png
 
-  .. figure:: images/create_vm_with_customize_pe.png
+     .. figure:: images/create_vm_with_customize_pe.png
 
 #. Select your new VM and power it on
 
-  - In Prism Central this is typically done by selecting the VM in the list, click the **Actions** button and selecting **Power On**
+     - In Prism Central this is typically done by selecting the VM in the list, click the **Actions** button and selecting **Power On**
 
-    .. figure:: images/power_on_pc.png
+       .. figure:: images/power_on_pc.png
 
-  - In Prism Element this can be done by selecting the VM and clicking **Power On** under the list of VMs
+     - In Prism Element this can be done by selecting the VM and clicking **Power On** under the list of VMs
 
-    .. figure:: images/power_on_pe.png
+       .. figure:: images/power_on_pe.png
 
 Verifying Cloud-Init status
 ...........................
@@ -343,30 +343,30 @@ What we can do, though, is wait a few minutes for the Cloud-Init processes to co
 
 #. Login to the VM either using the specified SSH credentials, or with username **nutanix** and password **nutanix/4u**
 
-#. Run the following (needlessly long) command:
+#. Run the following (needlessly long, but clean) command:
 
-  .. code-block: bash
+     .. code-block: bash
 
-    clear; echo; sudo tail -5 /var/log/cloud-init.log; echo; sudo cat /run/cloud-init/status.json; echo;
+       clear; echo; sudo tail -5 /var/log/cloud-init.log; echo; sudo cat /run/cloud-init/status.json; echo;
 
-  That will show the output of two files:
+     That will show the output of two files:
 
-  - /var/log/cloud-init.log
-  - /run/cloud-init/status.json
+     - /var/log/cloud-init.log
+     - /run/cloud-init/status.json
 
-  Looking at the contents of those files you'll be able to see if any errors were generated during the Cloud-Init process.
+     Looking at the contents of those files you'll be able to see if any errors were generated during the Cloud-Init process.
 
 #. Lastly, we can also check if the process worked by doing a simple **yum** check on one of the packages we asked to install.
 
-  .. code-block:: bash
+     .. code-block:: bash
 
-    sudo yum install python-pip
+       sudo yum install python-pip
 
-  Since we specified **python-pip** should be installed by Cloud-Init, you should receive something similar to the following (the version number may be different):
+     Since we specified **python-pip** should be installed by Cloud-Init, you should receive something similar to the following (the version number may be different):
 
-  .. code-block:: bash
+     .. code-block:: bash
 
-    Package python2-pip-8.1.2-8.el7.noarch already installed and latest version
+     Package python2-pip-8.1.2-8.el7.noarch already installed and latest version
 
 Finishing up and takeaways
 --------------------------
