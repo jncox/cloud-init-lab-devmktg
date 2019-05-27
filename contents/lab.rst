@@ -145,7 +145,7 @@ Base VM
 
     .. figure:: images/pc_vms.png
 
-#. If you are using Prism Element, select main menu and select **VMs**
+#. If you are using Prism Element, click the main menu and select **VMs**
 
     .. figure:: images/pe_vms.png
 
