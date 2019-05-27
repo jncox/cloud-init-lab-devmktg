@@ -294,24 +294,24 @@ A Cloud-Init YAML spec has been prepared for you ahead of time.  To use this fil
 
         final_message: CentOS 7 Tools Machine setup successfully!
 
-.. _GitHub: https://github.com/nutanixdev/cloud-init/blob/master/20190513_centos7toolsvm.yaml
+     .. _GitHub: https://github.com/nutanixdev/cloud-init/blob/master/20190513_centos7toolsvm.yaml
 
-So what does this Cloud-Init YAML spec actually do?
+     So what does this Cloud-Init YAML spec actually do?
 
-  - Creates a user named 'nutanix'.  In the **Nutanix** image, this user already exists, although there's some other user configuration we'll do, too
-  - Adds the specified SSH key to the nutanix user's **~/.ssh/authorized_keys** file i.e. sets that key is valid for login via SSH
-  - Adds the RHEL 7 'Epel' repo (release version)
-  - Updates and upgrades all CentOS 7 packages
-  - Installs a selection of packages e.g. Python utilities, AWS tools, NTP, jq (see the full list above)
-  - Runs some post-installation commands to configure NTP and disable SELinux (this is one of the reasons the file would need to be modified before use in production)
+     - Creates a user named 'nutanix'.  In the **Nutanix** image, this user already exists, although there's some other user configuration we'll do, too
+     - Adds the specified SSH key to the nutanix user's **~/.ssh/authorized_keys** file i.e. sets that key as authorised for login via SSH
+     - Adds the RHEL 7 'Epel' repo (release version)
+     - Updates and upgrades all CentOS 7 packages
+     - Installs a selection of packages e.g. Python utilities, AWS tools, NTP, jq (see the full list above)
+     - Runs some post-installation commands to configure NTP and disable SELinux (this is one of the reasons the file would need to be modified before use in production)
 
-**Note**
+     **Note**
 
-Please refer to the Nutanix Cloud-Init Limitations_ and Guidelines documentation for important information on using Cloud-Init in production.
+    Please refer to the Nutanix Cloud-Init Limitations_ and Guidelines documentation for important information on using Cloud-Init in production.
 
-.. _Limitations: https://portal.nutanix.com/#/page/docs/details?targetId=Web-Console-Guide-Prism-v510:wc-vm-image-guidelines-wc-r.html
+    .. _Limitations: https://portal.nutanix.com/#/page/docs/details?targetId=Web-Console-Guide-Prism-v510:wc-vm-image-guidelines-wc-r.html
 
-Now let's continue with our VM deployment.
+    Now let's continue with our VM deployment.
 
 #. **Custom Script** - Checked
 
