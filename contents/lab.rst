@@ -66,6 +66,8 @@ While creating an Nutanix image is beyond the scope of this lab, the following c
 
 The following steps will cover how to take an image provided by Nutanix and make it available on your cluster.
 
+Please use the section for Prism Central or Prism Element, depending on which one you are using.  When that section is completed, please continue at the **Deploying Cloud-Init VM** section.
+
 Prism Central 5.10.3
 ....................
 
