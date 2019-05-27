@@ -73,7 +73,7 @@ Prism Central 5.10.3
 
 #. Select :fa:`bars` **> Virtual Infrastructure > Images**.
 
-  .. figure:: images/pc_images.png
+    .. figure:: images/pc_images.png
 
 #. Click **Add Image**
 
