@@ -69,45 +69,58 @@ The following steps will cover how to take an image provided by Nutanix and make
 Prism Central 5.10.3
 ....................
 
-# Login to Prism Central
-# Select :fa:`bars` **> Virtual Infrastructure > Images**.
+#. Login to Prism Central
+
+#. Select :fa:`bars` **> Virtual Infrastructure > Images**.
 
   .. figure:: images/pc_images.png
 
-# Click **Add Image**
-# Select **URL** and enter the following: http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2
-# Click **Upload File**
-# **Image Name** - *Initials*-Cloud-Init-Image
-# **Image Type** - Disk
-# **Image Description** - Nutanix-hosted image for deploying Cloud-Init based VMs
+#. Click **Add Image**
+
+#. Select **URL** and enter the following: http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2
+
+#. Click **Upload File**
+
+#. **Image Name** - *Initials*-Cloud-Init-Image
+
+#. **Image Type** - Disk
+
+#. **Image Description** - Nutanix-hosted image for deploying Cloud-Init based VMs
 
   .. figure:: images/pc_images_completed.png
 
-# Click **Save**
+#. Click **Save**
 
-A popup notification will be shown indicating that the request has been received.
+  A popup notification will be shown indicating that the request has been received.
 
   .. figure:: images/pc_images_operation_received.png
 
-Prism Central will download the image from the Nutanix download servers and create an image based on the details above.
+  Prism Central will download the image from the Nutanix download servers and create an image based on the details above.
 
 Prism Element 5.10.3.1 LTS
 ..........................
 
-# Login to Prism Element
-# Click the "cog" icon and select **Image Configuration**
+#. Login to Prism Element
+
+#. Click the "cog" icon and select **Image Configuration**
 
   .. figure:: images/cog_icon.png
 
   .. figure:: images/pe_images.png
 
-# Click **Upload Image**
-# **Image Name** - *Initials*-Cloud-Init-Image
-# **Annotation** - Nutanix-hosted image for deploying Cloud-Init based VMs
-# **Image Type** - Disk
-# **Storage Container** - *Select an appropriate container on your cluster*
-# Select **From URL** and enter the following: http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2
-# Click **Save**
+#. Click **Upload Image**
+
+#. **Image Name** - *Initials*-Cloud-Init-Image
+
+#. **Annotation** - Nutanix-hosted image for deploying Cloud-Init based VMs
+
+#. **Image Type** - Disk
+
+#. **Storage Container** - *Select an appropriate container on your cluster*
+
+#. Select **From URL** and enter the following: http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2
+
+#. Click **Save**
 
   .. figure:: images/pe_images_completed.png
 
@@ -123,11 +136,11 @@ Now that our cluster has an image with Cloud-Init preinstalled, we can continue 
 Base VM
 .......
 
-# If you are using Prism Central, select :fa:`bars` **> Virtual Infrastructure > VMs**.
+#. If you are using Prism Central, select :fa:`bars` **> Virtual Infrastructure > VMs**.
 
   .. figure:: images/pc_vms.png
 
-# If you are using Prism Element, select main menu and select **VMs**
+#. If you are using Prism Element, select main menu and select **VMs**
 
   .. figure:: images/pe_vms.png
 
@@ -135,15 +148,23 @@ Base VM
 
   The steps below apply to both Prism Central and Prism Element.
 
-# Select **Create VM**
-# **Name** - *Initials*-Cloud-Init-VM
-# **Description** - VM created with Cloud-Init
-# **Timezone** - Leave unchanged
-# **Use this VM as an agent VM** - Unchecked
-# **VCPU(S)** - 1
-# **Number Of Cores Per Vcpu** - 1
-# **Memory** - 1
-# **Disks** - Select **Add New Disk** 
+#. Select **Create VM**
+
+#. **Name** - *Initials*-Cloud-Init-VM
+
+#. **Description** - VM created with Cloud-Init
+
+#. **Timezone** - Leave unchanged
+
+#. **Use this VM as an agent VM** - Unchecked
+
+#. **VCPU(S)** - 1
+
+#. **Number Of Cores Per Vcpu** - 1
+
+#. **Memory** - 1
+
+#. **Disks** - Select **Add New Disk** 
 
   - **Type** - Disk
   - **Operation** - Clone from Image Service
@@ -154,14 +175,15 @@ Base VM
 
   .. figure:: images/add_disk.png
 
-# Click **Add**
-# Click **Add New NIC**
+#. Click **Add**
+
+#. Click **Add New NIC**
 
   - **VLAN Name** - An appropriate network on your cluster e.g. Primary or Secondary for Nutanix HPOC clusters
   - **Network Connection State** - Connected (this option may not be available if using Nutanix Community Edition)
   - **IP Address** - Leave blank if your environment supports DHCP, otherwise enter a static IP address appropriate for your environment
 
-# Click **Add**
+#. Click **Add**
 
 Cloud-Init Configuration
 ........................
@@ -206,8 +228,9 @@ A Cloud-Init YAML spec has been prepared for you ahead of time.  To use this fil
     gmznERCNf9Kaxl/hlyV5dZBe/2LIK+/jLGNu9EJLoraaCBFshJKF
     -----END RSA PRIVATE KEY-----   
 
-# If you would like to refer to the YAML file later, it has been made available on GitHub_.
-# Otherwise, a copy of the YAML file is available below:
+#. If you would like to refer to the YAML file later, it has been made available on GitHub_.
+
+#. Otherwise, a copy of the YAML file is available below:
 
   .. code-block:: bash
 
@@ -285,21 +308,23 @@ Please refer to the Nutanix Cloud-Init Limitations_ and Guidelines documentation
 
 Now let's continue with our VM deployment.
 
-# **Custom Script** - Checked
-# **Type or Paste Script** - Selected (double-check that you have clicked the radio button!)
-# Paste the YAML file from above into the field provided
+#. **Custom Script** - Checked
+
+#. **Type or Paste Script** - Selected (double-check that you have clicked the radio button!)
+
+#. Paste the YAML file from above into the field provided
 
   .. figure:: images/pe_pc_create_vm.png
 
-# Click **Save**
+#. Click **Save**
 
-At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  During this process, Nutanix Acropolis prepares the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
+  At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  During this process, Nutanix Acropolis prepares the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
 
-.. figure:: images/create_vm_with_customize_pc.png
+  .. figure:: images/create_vm_with_customize_pc.png
 
-.. figure:: images/create_vm_with_customize_pe.png
+  .. figure:: images/create_vm_with_customize_pe.png
 
-# Select your new VM and power it on
+#. Select your new VM and power it on
 
   - In Prism Central this is typically done by selecting the VM in the list, click the **Actions** button and selecting **Power On**
 
@@ -316,8 +341,9 @@ At this point there isn't much to see if you open the VM console (although this 
 
 What we can do, though, is wait a few minutes for the Cloud-Init processes to complete, then login to the VM and take a look.
 
-# Login to the VM either using the specified SSH credentials, or with username **nutanix** and password **nutanix/4u**
-# Run the following (needlessly long) command:
+#. Login to the VM either using the specified SSH credentials, or with username **nutanix** and password **nutanix/4u**
+
+#. Run the following (needlessly long) command:
 
   .. code-block: bash
 
@@ -330,7 +356,7 @@ What we can do, though, is wait a few minutes for the Cloud-Init processes to co
 
   Looking at the contents of those files you'll be able to see if any errors were generated during the Cloud-Init process.
 
-# Lastly, we can also check if the process worked by doing a simple **yum** check on one of the packages we asked to install.
+#. Lastly, we can also check if the process worked by doing a simple **yum** check on one of the packages we asked to install.
 
   .. code-block:: bash
 
