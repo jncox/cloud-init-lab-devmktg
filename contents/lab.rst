@@ -4,13 +4,13 @@ Nutanix Cloud-Init Quick Lab
 Overview
 --------
 
-**Estimated time to complete: 15-60 MINUTES**
+**Estimated time to complete: 30-60 MINUTES**
 
 The Nutanix Cloud-Init Quick Lab will cover a few key points.
 
 - Cloud-Init intro
 - Preparing your cluster for Cloud-Init based VM deployments
-- Deployment of a CentOS 7 based development environment bootstrapped with Cloud-Init
+- Deployment of a CentOS 7 based environment bootstrapped with Cloud-Init
 
 This lab was written in May 2019 with the following Nutanix software versions:
 
@@ -20,16 +20,16 @@ This lab was written in May 2019 with the following Nutanix software versions:
 Introduction
 ------------
 
-When setting up development environments the requirements can sometimes be highly repeatable across deployment iterations.
+When setting up development environments the requirements can often be highly repeatable across deployment iterations.
 
-For example, let's say you are developing a Python application that will run on a CentOS 7 Linux VM.  Sure, you could create this VM, install the packages manually and then clone the VM later.  There are no "issues" with that approach, but what if ...
+For example, let's say you are developing a Python application that will run on a CentOS 7 Linux VM.  Sure, you could create this VM, install the packages manually and then clone the VM later.  There are no "issues" with that approach, but what if you need to do the following on all VMs deployed in the future ...
 
-- You need to update all packages to their latest versions?
-- Quickly add a new package to the deployed VMs?
+- Update all packages to their latest versions?
+- Quickly add a new package?
 - Change the hostname?
-- Add a specific SSH key pair?
+- Add a/another specific SSH key pair?
 
-This is where bootstrap tools like Cloud-Init come in.  Cloud-Init is fully supported by Nutanix Acropolis and allows you to create a VM and, during the time of creation, automatically carry out a set of predefined tasks.  For example:
+This is where bootstrap tools like Cloud-Init come in.  For some time now, Cloud-Init has been fully supported by Nutanix Acropolis.  Nutanix and Cloud-Init together allows you to create a VM and, during the time of creation, automatically carry out a set of predefined tasks.  For example:
 
 - Ensure a specific set of packages is installed
 - Specific SSH key pairs are installed
@@ -80,7 +80,7 @@ Prism Central 5.10.3
 
 #. Click **Add Image**
 
-#. Select **URL** and enter the following: http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2
+#. Select **URL** as the **Image Source** and enter the following: http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2
 
 #. Click **Upload File**
 
@@ -88,7 +88,7 @@ Prism Central 5.10.3
 
 #. **Image Type** - Disk
 
-#. **Image Description** - Nutanix-hosted image for deploying Cloud-Init based VMs
+#. **Image Description** - Nutanix-provided image for deploying Cloud-Init based VMs
 
     .. figure:: images/pc_images_completed.png
 
@@ -99,6 +99,10 @@ Prism Central 5.10.3
   .. figure:: images/pc_images_operation_received.png
 
   Prism Central will download the image from the Nutanix download servers and create an image based on the details above.
+
+  .. note::
+
+    The time taken for Prism Central to complete the imge download and processing steps may vary depending on your internet connection and cluster specification.
 
 .. _Element:
 
@@ -131,7 +135,11 @@ Prism Element 5.10.3.1 LTS
 
     .. figure:: images/pe_images_operation_received.png
 
-Prism Element will indicate that the operation has been received and create an image from disk image at the URL specified.
+   Prism Element will indicate that the operation has been received and create an image from disk image at the URL specified.
+
+   .. note::
+
+    The time taken for Prism Central to complete the imge download and processing steps may vary depending on your internet connection and cluster specification.
 
 Deploying Cloud-Init VM
 -----------------------
@@ -145,7 +153,7 @@ Base VM
 
     .. figure:: images/pc_vms.png
 
-#. If you are using Prism Element, click the main menu and select **VMs**
+#. If you are using Prism Element, click the main menu and select **VM**
 
     .. figure:: images/pe_vms.png
 
@@ -193,49 +201,19 @@ Base VM
 Cloud-Init Configuration
 ........................
 
-A Cloud-Init YAML spec has been prepared for you ahead of time.  To use this file, you will need to create or use an existing SSH key pair.  A sample public/private key pair has been provided below.
+This section is where we move beyond the creation of a "basic" VM and into the Cloud-Init specific configuration.
 
-**Public key**
+The steps below apply to both Prism Central and Prism Element.
 
-  ::
+#. **Custom Script** - Checked
 
-    ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAii7qFDhVadLx5lULAG/ooCUTA/ATSmXbArs+GdHxbUWd/bNGZCXnaQ2L1mSVVGDxfTbSaTJ3En3tVlMtD2RjZPdhqWESCaoj2kXLYSiNDS9qz3SK6h822je/f9O9CzCTrw2XGhnDVwmNraUvO5wmQObCDthTXc72PcBOd6oa4ENsnuY9HtiETg29TZXgCYPFXipLBHSZYkBmGgccAeY9dq5ywiywBJLuoSovXkkRJk3cd7GyhCRIwYzqfdgSmiAMYgJLrz/UuLxatPqXts2D8v1xqR9EPNZNzgd4QHK4of1lqsNRuz2SxkwqLcXSw0mGcAL8mIwVpzhPzwmENC5Orw== rsa-key-20190108
+#. **Type or Paste Script** - Selected (double-check that you have clicked the radio button!)
 
-**Private key**
+#. Paste the YAML file below into the field provided
 
-  ::
+     .. figure:: images/pe_pc_create_vm.png
 
-    -----BEGIN RSA PRIVATE KEY-----
-    MIIEowIBAAKCAQEAii7qFDhVadLx5lULAG/ooCUTA/ATSmXbArs+GdHxbUWd/bNG
-    ZCXnaQ2L1mSVVGDxfTbSaTJ3En3tVlMtD2RjZPdhqWESCaoj2kXLYSiNDS9qz3SK
-    6h822je/f9O9CzCTrw2XGhnDVwmNraUvO5wmQObCDthTXc72PcBOd6oa4ENsnuY9
-    HtiETg29TZXgCYPFXipLBHSZYkBmGgccAeY9dq5ywiywBJLuoSovXkkRJk3cd7Gy
-    hCRIwYzqfdgSmiAMYgJLrz/UuLxatPqXts2D8v1xqR9EPNZNzgd4QHK4of1lqsNR
-    uz2SxkwqLcXSw0mGcAL8mIwVpzhPzwmENC5OrwIBJQKCAQB++q2WCkCmbtByyrAp
-    6ktiukjTL6MGGGhjX/PgYA5IvINX1SvtU0NZnb7FAntiSz7GFrODQyFPQ0jL3bq0
-    MrwzRDA6x+cPzMb/7RvBEIGdadfFjbAVaMqfAsul5SpBokKFLxU6lDb2CMdhS67c
-    1K2Hv0qKLpHL0vAdEZQ2nFAMWETvVMzl0o1dQmyGzA0GTY8VYdCRsUbwNgvFMvBj
-    8T/svzjpASDifa7IXlGaLrXfCH584zt7y+qjJ05O1G0NFslQ9n2wi7F93N8rHxgl
-    JDE4OhfyaDyLL1UdBlBpjYPSUbX7D5NExLggWEVFEwx4JRaK6+aDdFDKbSBIidHf
-    h45NAoGBANjANRKLBtcxmW4foK5ILTuFkOaowqj+2AIgT1ezCVpErHDFg0bkuvDk
-    QVdsAJRX5//luSO30dI0OWWGjgmIUXD7iej0sjAPJjRAv8ai+MYyaLfkdqv1Oj5c
-    oDC3KjmSdXTuWSYNvarsW+Uf2v7zlZlWesTnpV6gkZH3tX86iuiZAoGBAKM0mKX0
-    EjFkJH65Ym7gIED2CUyuFqq4WsCUD2RakpYZyIBKZGr8MRni3I4z6Hqm+rxVW6Dj
-    uFGQe5GhgPvO23UG1Y6nm0VkYgZq81TraZc/oMzignSC95w7OsLaLn6qp32Fje1M
-    Ez2Yn0T3dDcu1twY8OoDuvWx5LFMJ3NoRJaHAoGBAJ4rZP+xj17DVElxBo0EPK7k
-    7TKygDYhwDjnJSRSN0HfFg0agmQqXucjGuzEbyAkeN1Um9vLU+xrTHqEyIN/Jqxk
-    hztKxzfTtBhK7M84p7M5iq+0jfMau8ykdOVHZAB/odHeXLrnbrr/gVQsAKw1NdDC
-    kPCNXP/c9JrzB+c4juEVAoGBAJGPxmp/vTL4c5OebIxnCAKWP6VBUnyWliFhdYME
-    rECvNkjoZ2ZWjKhijVw8Il+OAjlFNgwJXzP9Z0qJIAMuHa2QeUfhmFKlo4ku9LOF
-    2rdUbNJpKD5m+IRsLX1az4W6zLwPVRHp56WjzFJEfGiRjzMBfOxkMSBSjbLjDm3Z
-    iUf7AoGBALjvtjapDwlEa5/CFvzOVGFq4L/OJTBEBGx/SA4HUc3TFTtlY2hvTDPZ
-    dQr/JBzLBUjCOBVuUuH3uW7hGhW+DnlzrfbfJATaRR8Ht6VU651T+Gbrr8EqNpCP
-    gmznERCNf9Kaxl/hlyV5dZBe/2LIK+/jLGNu9EJLoraaCBFshJKF
-    -----END RSA PRIVATE KEY-----   
-
-#. If you would like to refer to the YAML file later, it has been made available on GitHub_.
-
-#. Otherwise, a copy of the YAML file is available below:
+    A Cloud-Init YAML spec has been prepared for you ahead of time.  To use this file, you will need to create or use an existing SSH key pair.  A sample public/private key pair has been provided below.
 
      .. code-block:: bash     
 
@@ -296,6 +274,8 @@ A Cloud-Init YAML spec has been prepared for you ahead of time.  To use this fil
 
      .. _GitHub: https://github.com/nutanixdev/cloud-init/blob/master/20190513_centos7toolsvm.yaml
 
+     If you would like to refer to the YAML file later, it has also been made available on GitHub_.
+
      So what does this Cloud-Init YAML spec actually do?
 
      - Creates a user named 'nutanix'.  In the **Nutanix** image, this user already exists, although there's some other user configuration we'll do, too
@@ -311,17 +291,45 @@ A Cloud-Init YAML spec has been prepared for you ahead of time.  To use this fil
 
     .. _Limitations: https://portal.nutanix.com/#/page/docs/details?targetId=Web-Console-Guide-Prism-v510:wc-vm-image-guidelines-wc-r.html
 
-    Now let's continue with our VM deployment.
+#. In the Cloud-Init spec that was just copied and pasted, near the top, replace **<<your public SSH RSA key here>** with either your own SSH public key, or the key provided below, if you don't have one available:
 
-#. **Custom Script** - Checked
+    **Public key**
 
-#. **Type or Paste Script** - Selected (double-check that you have clicked the radio button!)
+    ::
 
-#. Paste the YAML file from above into the field provided
+      ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAii7qFDhVadLx5lULAG/ooCUTA/ATSmXbArs+GdHxbUWd/bNGZCXnaQ2L1mSVVGDxfTbSaTJ3En3tVlMtD2RjZPdhqWESCaoj2kXLYSiNDS9qz3SK6h822je/f9O9CzCTrw2XGhnDVwmNraUvO5wmQObCDthTXc72PcBOd6oa4ENsnuY9HtiETg29TZXgCYPFXipLBHSZYkBmGgccAeY9dq5ywiywBJLuoSovXkkRJk3cd7GyhCRIwYzqfdgSmiAMYgJLrz/UuLxatPqXts2D8v1xqR9EPNZNzgd4QHK4of1lqsNRuz2SxkwqLcXSw0mGcAL8mIwVpzhPzwmENC5Orw== rsa-key-20190108
 
-     .. figure:: images/pe_pc_create_vm.png
+    **Private key**
 
-#. Replace **<<your public SSH RSA key here>** with either your own SSH public key, or the key provided above
+    ::
+
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEAii7qFDhVadLx5lULAG/ooCUTA/ATSmXbArs+GdHxbUWd/bNG
+      ZCXnaQ2L1mSVVGDxfTbSaTJ3En3tVlMtD2RjZPdhqWESCaoj2kXLYSiNDS9qz3SK
+      6h822je/f9O9CzCTrw2XGhnDVwmNraUvO5wmQObCDthTXc72PcBOd6oa4ENsnuY9
+      HtiETg29TZXgCYPFXipLBHSZYkBmGgccAeY9dq5ywiywBJLuoSovXkkRJk3cd7Gy
+      hCRIwYzqfdgSmiAMYgJLrz/UuLxatPqXts2D8v1xqR9EPNZNzgd4QHK4of1lqsNR
+      uz2SxkwqLcXSw0mGcAL8mIwVpzhPzwmENC5OrwIBJQKCAQB++q2WCkCmbtByyrAp
+      6ktiukjTL6MGGGhjX/PgYA5IvINX1SvtU0NZnb7FAntiSz7GFrODQyFPQ0jL3bq0
+      MrwzRDA6x+cPzMb/7RvBEIGdadfFjbAVaMqfAsul5SpBokKFLxU6lDb2CMdhS67c
+      1K2Hv0qKLpHL0vAdEZQ2nFAMWETvVMzl0o1dQmyGzA0GTY8VYdCRsUbwNgvFMvBj
+      8T/svzjpASDifa7IXlGaLrXfCH584zt7y+qjJ05O1G0NFslQ9n2wi7F93N8rHxgl
+      JDE4OhfyaDyLL1UdBlBpjYPSUbX7D5NExLggWEVFEwx4JRaK6+aDdFDKbSBIidHf
+      h45NAoGBANjANRKLBtcxmW4foK5ILTuFkOaowqj+2AIgT1ezCVpErHDFg0bkuvDk
+      QVdsAJRX5//luSO30dI0OWWGjgmIUXD7iej0sjAPJjRAv8ai+MYyaLfkdqv1Oj5c
+      oDC3KjmSdXTuWSYNvarsW+Uf2v7zlZlWesTnpV6gkZH3tX86iuiZAoGBAKM0mKX0
+      EjFkJH65Ym7gIED2CUyuFqq4WsCUD2RakpYZyIBKZGr8MRni3I4z6Hqm+rxVW6Dj
+      uFGQe5GhgPvO23UG1Y6nm0VkYgZq81TraZc/oMzignSC95w7OsLaLn6qp32Fje1M
+      Ez2Yn0T3dDcu1twY8OoDuvWx5LFMJ3NoRJaHAoGBAJ4rZP+xj17DVElxBo0EPK7k
+      7TKygDYhwDjnJSRSN0HfFg0agmQqXucjGuzEbyAkeN1Um9vLU+xrTHqEyIN/Jqxk
+      hztKxzfTtBhK7M84p7M5iq+0jfMau8ykdOVHZAB/odHeXLrnbrr/gVQsAKw1NdDC
+      kPCNXP/c9JrzB+c4juEVAoGBAJGPxmp/vTL4c5OebIxnCAKWP6VBUnyWliFhdYME
+      rECvNkjoZ2ZWjKhijVw8Il+OAjlFNgwJXzP9Z0qJIAMuHa2QeUfhmFKlo4ku9LOF
+      2rdUbNJpKD5m+IRsLX1az4W6zLwPVRHp56WjzFJEfGiRjzMBfOxkMSBSjbLjDm3Z
+      iUf7AoGBALjvtjapDwlEa5/CFvzOVGFq4L/OJTBEBGx/SA4HUc3TFTtlY2hvTDPZ
+      dQr/JBzLBUjCOBVuUuH3uW7hGhW+DnlzrfbfJATaRR8Ht6VU651T+Gbrr8EqNpCP
+      gmznERCNf9Kaxl/hlyV5dZBe/2LIK+/jLGNu9EJLoraaCBFshJKF
+      -----END RSA PRIVATE KEY-----
 
 #. Click **Save**
 
