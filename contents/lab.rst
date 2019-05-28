@@ -377,9 +377,33 @@ At this point there isn't much to see if you open the VM console (although this 
 
 What we can do, though, is wait a few minutes for the Cloud-Init processes to complete, then login to the VM and take a look.
 
-#. Login to the VM either using the specified SSH credentials, or with username **nutanix** and password **nutanix/4u**
+#. Login to the VM:
 
-#. Run the following (needlessly long, but clean) command:
+    Prism Central (scroll down for Prism Element)
+
+      - Select :fa:`bars` **> Virtual Infrastructure > VMs**.
+
+        .. figure:: images/pc_vms.png
+
+      - Check the box next to your VM's name, click the **Actions** dropdown button and click **Launch Console**
+
+        .. figure:: images/launch_console_pc.png
+
+    Prism Element:
+
+     - If you are using Prism Element, click the main menu and select **VM**
+
+       .. figure:: images/pe_vms.png
+
+     - Click your VM in the list and, below the list of VMs, click **Launch Console**
+
+       .. figure:: images/launch_console_pe.png
+
+    The remaining steps apply to the console on both Prism Central and Prism Element.
+
+#. Login to the VM either with username **nutanix** and password **nutanix/4u** or with the SSH key provided earlier (for advanced users)
+
+#. Run the following (long, but clean) command.  Please note that you'll need to enter this command manually vs copy and paste used in previous steps.
 
      .. code-block:: bash
 
@@ -390,7 +414,9 @@ What we can do, though, is wait a few minutes for the Cloud-Init processes to co
      - /var/log/cloud-init.log
      - /run/cloud-init/status.json
 
-     Looking at the contents of those files you'll be able to see if any errors were generated during the Cloud-Init process.
+     Looking at the contents of those files you'll be able to see if any errors were generated during the Cloud-Init process.  An example is shown below.
+
+     .. figure:: images/cloud_init_running.png
 
 #. Lastly, we can also check if the process worked by doing a simple **yum** check on one of the packages we asked to install.
 
