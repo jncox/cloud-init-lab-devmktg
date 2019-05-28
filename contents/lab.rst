@@ -333,11 +333,21 @@ The steps below apply to both Prism Central and Prism Element.
 
 #. Click **Save**
 
-     At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  That tasks is Nutanix Acropolis preparing the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
+     At this point, Nutanix Acropolis will create a VM with the specifications you have provided.  During this process you will see a task named **Create VM with customize**.  That task is Nutanix Acropolis preparing the VM to run our Cloud-Init spec the first time it is powered on.  Wait until this step is completed before you try to power the VM on.
 
      .. figure:: images/create_vm_with_customize_pc.png
 
      .. figure:: images/create_vm_with_customize_pe.png
+
+#. To check the status of the **Create VM with customize** task, follow the steps below.
+
+   - For Prism Central, click the **Tasks** button (highlighted in blue) and then click **View All Tasks >** (highlighted in red)
+
+     .. figure:: images/tasks_pc.png
+
+   - For Prism Element, click the main menu and select **Tasks** (highlighted in red):
+
+     .. figure:: images/tasks_pe.png
 
 #. When the **Create VM with customize** task has completed, select your new VM and power it on
 
