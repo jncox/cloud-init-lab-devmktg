@@ -391,7 +391,7 @@ What we can do, though, is wait a few minutes for the Cloud-Init processes to co
 
     Prism Element:
 
-     - If you are using Prism Element, click the main menu and select **VM**
+     - Click the main menu and select **VM**
 
        .. figure:: images/pe_vms.png
 
