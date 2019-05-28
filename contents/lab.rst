@@ -39,6 +39,15 @@ This is where bootstrap tools like Cloud-Init come in.  For some time now, Cloud
 
 How do we do this with Nutanix?  Easy!  Read on ...
 
+Sample code
+-----------
+
+Before getting started, please note the following.
+
+Throughout this lab there are a number of code samples provided for you use.  When moving the mouse over these samples, a copy button will appear in the top-corner of the code block.  It is strongly recommended to use this button when copying sample code, instead of manually copying the text from the browser window.
+
+.. figure:: images/copy_button.png
+
 Supported environments
 ----------------------
 
@@ -291,7 +300,7 @@ The steps below apply to both Prism Central and Prism Element.
 
     .. _Limitations: https://portal.nutanix.com/#/page/docs/details?targetId=Web-Console-Guide-Prism-v510:wc-vm-image-guidelines-wc-r.html
 
-#. In the Cloud-Init spec that was just copied and pasted, near the top, replace **<<your public SSH RSA key here>** with either your own SSH public key, or the key provided below, if you don't have one available:
+#. In the Cloud-Init spec that was just copied and pasted, near the top, replace **<your public SSH RSA key here>** with either your own SSH public key, or the key provided below, if you don't have one available:
 
     **Public key**
 
