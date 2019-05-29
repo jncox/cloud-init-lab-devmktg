@@ -377,6 +377,10 @@ At this point there isn't much to see if you open the VM console (although this 
 
 What we can do, though, is wait a few minutes for the Cloud-Init processes to complete, then login to the VM and take a look.
 
+.. note::
+
+  When opening the console below, please be aware that you'll be shown all console output that occurs during your session.  If you are trying to enter a username or password and the console shows verbose system output, press **Enter** and you should be taken back to the standard login prompt.
+
 #. Login to the VM:
 
     Prism Central (scroll down for Prism Element)
